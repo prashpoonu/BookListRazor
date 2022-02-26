@@ -23,5 +23,19 @@ namespace BookListRazor.Pages.BookList
         {
             _db = db;
         }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if(ModelState.IsValid)
+            {
+                if(Book!=null)
+                {
+                    _db.Book.Update(Book);
+                    await _db.SaveChangesAsync();
+                    return RedirectToPage("Index");
+                }
+            }
+            return RedirectToPage();
+        }
     }
 }
